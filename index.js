@@ -15,12 +15,13 @@ app.get('/', (req, res) => {
 });
 
 let port = process.env.PORT || 3001
-let trigger = false
+var trigger = false
 
 io.on('connection', (socket) => {
-    console.log('user connected')
     socket.on("clicked", function() {
-        socket.broadcast.emit('trigger', !trigger);
+        trigger = (trigger) ? false : true
+        socket.broadcast.emit('trigger', trigger);
+        console.log('user connected', trigger)
     })
     socket.on('join', function(userNickname = '') {
         console.log(userNickname +" : has joined the chat "  );
