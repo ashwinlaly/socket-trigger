@@ -18,7 +18,7 @@ let port = process.env.PORT || 3001
 
 io.on('connection', (socket) => {
     console.log('user connected')
-    socket.on('join', function(userNickname) {
+    socket.on('join', function(userNickname = '') {
         console.log(userNickname +" : has joined the chat "  );
         socket.broadcast.emit('userjoinedthechat',userNickname +" : has joined the chat ");
     })
@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
         io.emit('message', message )
       })
     socket.on('disconnect', function() {
-        console.log(userNickname +' has left ')
+        console.log(' has left ')
         socket.broadcast.emit( "userdisconnect" ,' user has left')
     })
 })
